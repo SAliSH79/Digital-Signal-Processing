@@ -1,0 +1,424 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Digital Signal Processing MATLAB HW2 - q2</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-10"><meta name="DC.source" content="DSP0_MATLAB_HW2_Q2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Digital Signal Processing MATLAB HW2 - q2</h1><!--introduction--><p>Professor: Dr. Sheikhzadeh Author: [SeyedAli] - [SeyedHosseini] E-mail: [alisnake@aut.ac.ir]  %which I`m about to change ASAP University: Amirkabir University of Technology</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear recent data</a></li><li><a href="#2">Part A</a></li><li><a href="#3">Part B</a></li><li><a href="#4">Part C</a></li><li><a href="#5">Function Impulse Invariance</a></li><li><a href="#6">Function for ButterWorth Design1</a></li><li><a href="#7">Function for ButterWorth Design2</a></li><li><a href="#8">Function Direct to Cascade Form</a></li></ul></div><h2 id="1">Clear recent data</h2><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="2">Part A</h2><pre class="codeinput"><span class="comment">% Digital Filter Specifications:</span>
+wp = 0.2*pi; <span class="comment">% digital Passband freq in Hz</span>
+ws = 0.4*pi; <span class="comment">% digital Stopband freq in Hz</span>
+Rp = 1; <span class="comment">% Passband ripple in dB</span>
+As = 20; <span class="comment">% Stopband attenuation in dB</span>
+
+<span class="comment">% Analog Prototype Specifications:</span>
+T = 2; <span class="comment">% Set T=2</span>
+OmegaP = (2/T)*tan(wp/2); <span class="comment">% Prewarp Prototype Passband freq</span>
+OmegaS = (2/T)*tan(ws/2); <span class="comment">% Prewarp Prototype Stopband freq</span>
+
+[cs,ds] = afd_butt(OmegaP,OmegaS,Rp,As); <span class="comment">% Analog Butterworth Prototype Filter Calculation</span>
+
+Fs = 1/T ; <span class="comment">%sample rate to a discrete equivalent.</span>
+[cz , dz] = bilinear(cs,ds,Fs); <span class="comment">%Bilinear Transformation on H(s) to H(z)</span>
+[C,B,A] = sdir2cas(cz,dz); <span class="comment">%FInding Coefficient In Cascade Form</span>
+
+figure(1)
+freqz(cz,dz,64) <span class="comment">%plotting Freq Response of H(z)</span>
+title(<span class="string">"Frequency Response Of Digital ButterWorth Filter H(z) Part A"</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q2_01.png" alt=""> <h2 id="3">Part B</h2><pre class="codeinput"><span class="comment">% Digital Filter Specifications:</span>
+wp = 0.2*pi; <span class="comment">% digital Passband freq in Hz</span>
+ws = 0.4*pi; <span class="comment">% digital Stopband freq in Hz</span>
+Rp = 1; <span class="comment">% Passband ripple in dB</span>
+As = 20; <span class="comment">% Stopband attenuation in dB</span>
+
+<span class="comment">% Analog Prototype Specifications:</span>
+T = 2; <span class="comment">% Set T=2</span>
+OmegaP = (2/T)*tan(wp/2); <span class="comment">% Prewarp Prototype Passband freq</span>
+OmegaS = (2/T)*tan(ws/2); <span class="comment">% Prewarp Prototype Stopband freq</span>
+
+<span class="comment">% Analog Prototype Order Calculation:</span>
+N =ceil((log10((10^(Rp/10)-1)/(10^(As/10)-1)))/(2*log10(OmegaP/OmegaS)));
+fprintf(<span class="string">'\n Butterworth Filter Order for Part B = %2.0f \n'</span>,N)
+OmegaC_b = OmegaP/((10^(Rp/10)-1)^(1/(2*N))); <span class="comment">%Analog BW prototype cutoff</span>
+wn = 2*atan((OmegaC_b*T)/2); <span class="comment">%Digital BW cutoff freq</span>
+
+<span class="comment">% Digital Butterworth Filter Design:</span>
+wn = wn/pi; <span class="comment">%Digital Butter cutoff in pi units</span>
+[czb,dzb]=butter(N,wn);
+[Cb,Bb,Ab] = sdir2cas(czb,dzb) ;  <span class="comment">%FInding Coefficient In Cascade Form</span>
+
+figure(2)
+freqz(czb,dzb)
+title(<span class="string">"Frequency Response Of Digital ButterWorth Filter for part B"</span>)
+</pre><pre class="codeoutput">
+ Butterworth Filter Order for Part B =  4 
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q2_02.png" alt=""> <h2 id="4">Part C</h2><pre class="codeinput">[voice , Fs1] = audioread(<span class="string">"multi_tone.wav"</span>); <span class="comment">%Storing audio in matlab</span>
+voice = voice' ;
+figure(3)
+freqz(voice)
+title(<span class="string">" Frequency Response of Voice for Part C "</span>)
+
+voice_filtered = filter(czb,dzb,voice); <span class="comment">%Filtered Voice with Designed Filtered in Section B</span>
+figure(4)
+freqz(voice_filtered)
+title(<span class="string">" Frequency Response of Filtered Voice for Part C "</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q2_03.png" alt=""> <img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q2_04.png" alt=""> <h2 id="5">Function Impulse Invariance</h2><pre class="codeinput"><span class="keyword">function</span> [b,a] = imp_invr(c,d,T)
+<span class="comment">% Impulse Invariance Transformation from Analog to Digital Filter</span>
+<span class="comment">% ---------------------------------------------------------------</span>
+<span class="comment">% [b,a] = imp_invr(c,d,T)</span>
+<span class="comment">% b = Numerator polynomial in z^(-1) of the digital filter</span>
+<span class="comment">% a = Denominator polynomial in z^(-1) of the digital filter</span>
+<span class="comment">% c = Numerator polynomial in s of the analog filter</span>
+<span class="comment">% d = Denominator polynomial in s of the analog filter</span>
+<span class="comment">% T = Sampling (transformation) parameter</span>
+<span class="comment">%</span>
+[R,p,k] = residue(c,d); p = exp(p*T);
+[b,a] = residuez(R,p,k); b = real(b'); a = real(a');
+<span class="keyword">end</span>
+</pre><h2 id="6">Function for ButterWorth Design1</h2><pre class="codeinput"><span class="keyword">function</span> [b,a] = u_buttap(N,Omegac);
+<span class="comment">% Unnormalized Butterworth Analog Lowpass Filter Prototype</span>
+<span class="comment">% --------------------------------------------------------</span>
+<span class="comment">% [b,a] = u_buttap(N,Omegac);</span>
+<span class="comment">% b = numerator polynomial coefficients of Ha(s)</span>
+<span class="comment">% a = denominator polynomial coefficients of Ha(s)</span>
+<span class="comment">% N = Order of the Butterworth Filter</span>
+<span class="comment">% Omegac = Cutoff frequency in radians/sec</span>
+<span class="comment">%</span>
+[z,p,k] = buttap(N);
+p = p*Omegac;
+k = k*Omegac^N;
+B = real(poly(z));
+b0 = k; b = k*B;
+a = real(poly(p));
+<span class="keyword">end</span>
+</pre><h2 id="7">Function for ButterWorth Design2</h2><pre class="codeinput"><span class="keyword">function</span> [b,a] = afd_butt(Wp,Ws,Rp,As);
+<span class="comment">% Analog Lowpass Filter Design: Butterworth</span>
+<span class="comment">% -----------------------------------------</span>
+<span class="comment">% [b,a] = afd_butt(Wp,Ws,Rp,As);</span>
+<span class="comment">% b = Numerator coefficients of Ha(s)</span>
+<span class="comment">% a = Denominator coefficients of Ha(s)</span>
+<span class="comment">% Wp = Passband edge frequency in rad/sec; Wp &gt; 0</span>
+<span class="comment">% Ws = Stopband edge frequency in rad/sec; Ws &gt; Wp &gt; 0</span>
+<span class="comment">% Rp = Passband ripple in +dB; (Rp &gt; 0)</span>
+<span class="comment">% As = Stopband attenuation in +dB; (As &gt; 0)</span>
+<span class="comment">%</span>
+<span class="keyword">if</span> Wp &lt;= 0
+error(<span class="string">'Passband edge must be larger than 0'</span>)
+<span class="keyword">end</span>
+<span class="keyword">if</span> Ws &lt;= Wp
+error(<span class="string">'Stopband edge must be larger than Passband edge'</span>)
+<span class="keyword">end</span>
+<span class="keyword">if</span> (Rp &lt;= 0) || (As &lt; 0)
+error(<span class="string">'PB ripple and/or SB attenuation ust be larger than 0'</span>)
+<span class="keyword">end</span>
+N = ceil((log10((10^(Rp/10)-1)/(10^(As/10)-1)))/(2*log10(Wp/Ws)));
+fprintf(<span class="string">'\n Butterworth Filter Order for Part A = %2.0f \n'</span>,N)
+OmegaC = Wp/((10^(Rp/10)-1)^(1/(2*N)));
+[b,a]=u_buttap(N,OmegaC);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+ Butterworth Filter Order for Part A =  4 
+</pre><h2 id="8">Function Direct to Cascade Form</h2><pre class="codeinput"><span class="keyword">function</span> [C,B,A] = sdir2cas(b,a);
+<span class="comment">% DIRECT-form to CASCADE-form conversion in s-plane</span>
+<span class="comment">% -------------------------------------------------</span>
+<span class="comment">% [C,B,A] = sdir2cas(b,a)</span>
+<span class="comment">% C = gain coefficient</span>
+<span class="comment">% B = K by 3 matrix of real coefficients containing bk&#8217;s</span>
+<span class="comment">% A = K by 3 matrix of real coefficients containing ak&#8217;s</span>
+<span class="comment">% b = numerator polynomial coefficients of DIRECT form</span>
+<span class="comment">% a = denominator polynomial coefficients of DIRECT form</span>
+<span class="comment">%</span>
+Na = length(a)-1; Nb = length(b)-1;
+<span class="comment">% compute gain coefficient C</span>
+b0 = b(1); b = b/b0; a0 = a(1); a = a/a0; C = b0/a0;
+<span class="comment">%</span>
+<span class="comment">% Denominator second-order sections:</span>
+p= cplxpair(roots(a)); K = floor(Na/2);
+ <span class="keyword">if</span> K*2 == Na <span class="comment">% Computation when Na is even</span>
+   A = zeros(K,3);
+   <span class="keyword">for</span> n=1:2:Na
+      Arow = p(n:1:n+1,:); Arow = poly(Arow);
+      A(fix((n+1)/2),:) = real(Arow);
+   <span class="keyword">end</span>
+ <span class="keyword">elseif</span> Na == 1 <span class="comment">% Computation when Na = 1</span>
+   A = [0 real(poly(p))];
+ <span class="keyword">else</span> <span class="comment">% Computation when Na is odd and &gt; 1</span>
+    A = zeros(K+1,3);
+    <span class="keyword">for</span> n=1:2:2*K
+       Arow = p(n:1:n+1,:); Arow = poly(Arow);
+       A(fix((n+1)/2),:) = real(Arow);
+    <span class="keyword">end</span>
+    A(K+1,:) = [0 real(poly(p(Na)))];
+  <span class="keyword">end</span>
+<span class="comment">% Numerator second-order sections:</span>
+   z = cplxpair(roots(b)); K = floor(Nb/2);
+   <span class="keyword">if</span> Nb == 0 <span class="comment">% Computation when Nb = 0</span>
+      B = [0 0 poly(z)];
+   <span class="keyword">elseif</span> K*2 == Nb <span class="comment">% Computation when Nb is even</span>
+      B = zeros(K,3);
+      <span class="keyword">for</span> n=1:2:Nb
+          Brow = z(n:1:n+1,:); Brow = poly(Brow);
+          B(fix((n+1)/2),:) = real(Brow);
+      <span class="keyword">end</span>
+   <span class="keyword">elseif</span> Nb == 1 <span class="comment">% Computation when Nb = 1</span>
+        B = [0 real(poly(z))];
+     <span class="keyword">else</span> <span class="comment">% Computation when Nb is odd and &gt; 1</span>
+        B = zeros(K+1,3);
+        <span class="keyword">for</span> n=1:2:2*K
+Brow = z(n:1:n+1,:); Brow = poly(Brow);
+B(fix((n+1)/2),:) = real(Brow);
+        <span class="keyword">end</span>
+           B(K+1,:) = [0 real(poly(z(Nb)))];
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Digital Signal Processing MATLAB HW2 - q2
+% Professor: Dr. Sheikhzadeh
+% Author: [SeyedAli] - [SeyedHosseini]
+% E-mail: [alisnake@aut.ac.ir]  %which I`m about to change ASAP
+% University: Amirkabir University of Technology
+
+%% Clear recent data
+clear; close all; clc;
+
+%% Part A
+
+% Digital Filter Specifications:
+wp = 0.2*pi; % digital Passband freq in Hz
+ws = 0.4*pi; % digital Stopband freq in Hz
+Rp = 1; % Passband ripple in dB
+As = 20; % Stopband attenuation in dB
+
+% Analog Prototype Specifications:
+T = 2; % Set T=2
+OmegaP = (2/T)*tan(wp/2); % Prewarp Prototype Passband freq
+OmegaS = (2/T)*tan(ws/2); % Prewarp Prototype Stopband freq
+
+[cs,ds] = afd_butt(OmegaP,OmegaS,Rp,As); % Analog Butterworth Prototype Filter Calculation
+
+Fs = 1/T ; %sample rate to a discrete equivalent.
+[cz , dz] = bilinear(cs,ds,Fs); %Bilinear Transformation on H(s) to H(z)
+[C,B,A] = sdir2cas(cz,dz); %FInding Coefficient In Cascade Form
+
+figure(1)
+freqz(cz,dz,64) %plotting Freq Response of H(z)
+title("Frequency Response Of Digital ButterWorth Filter H(z) Part A")
+
+%% Part B
+
+% Digital Filter Specifications:
+wp = 0.2*pi; % digital Passband freq in Hz
+ws = 0.4*pi; % digital Stopband freq in Hz
+Rp = 1; % Passband ripple in dB
+As = 20; % Stopband attenuation in dB
+
+% Analog Prototype Specifications:
+T = 2; % Set T=2
+OmegaP = (2/T)*tan(wp/2); % Prewarp Prototype Passband freq
+OmegaS = (2/T)*tan(ws/2); % Prewarp Prototype Stopband freq
+
+% Analog Prototype Order Calculation:
+N =ceil((log10((10^(Rp/10)-1)/(10^(As/10)-1)))/(2*log10(OmegaP/OmegaS)));
+fprintf('\n Butterworth Filter Order for Part B = %2.0f \n',N)
+OmegaC_b = OmegaP/((10^(Rp/10)-1)^(1/(2*N))); %Analog BW prototype cutoff
+wn = 2*atan((OmegaC_b*T)/2); %Digital BW cutoff freq
+
+% Digital Butterworth Filter Design:
+wn = wn/pi; %Digital Butter cutoff in pi units
+[czb,dzb]=butter(N,wn); 
+[Cb,Bb,Ab] = sdir2cas(czb,dzb) ;  %FInding Coefficient In Cascade Form
+
+figure(2)
+freqz(czb,dzb)
+title("Frequency Response Of Digital ButterWorth Filter for part B")
+
+%% Part C
+
+[voice , Fs1] = audioread("multi_tone.wav"); %Storing audio in matlab
+voice = voice' ;
+figure(3)
+freqz(voice)
+title(" Frequency Response of Voice for Part C ")
+
+voice_filtered = filter(czb,dzb,voice); %Filtered Voice with Designed Filtered in Section B
+figure(4)
+freqz(voice_filtered)
+title(" Frequency Response of Filtered Voice for Part C ")
+%% Function Impulse Invariance
+function [b,a] = imp_invr(c,d,T)
+% Impulse Invariance Transformation from Analog to Digital Filter
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% [b,a] = imp_invr(c,d,T)
+% b = Numerator polynomial in z^(-1) of the digital filter
+% a = Denominator polynomial in z^(-1) of the digital filter
+% c = Numerator polynomial in s of the analog filter
+% d = Denominator polynomial in s of the analog filter
+% T = Sampling (transformation) parameter
+%
+[R,p,k] = residue(c,d); p = exp(p*T);
+[b,a] = residuez(R,p,k); b = real(b'); a = real(a');
+end
+%% Function for ButterWorth Design1
+function [b,a] = u_buttap(N,Omegac);
+% Unnormalized Butterworth Analog Lowpass Filter Prototype
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% [b,a] = u_buttap(N,Omegac);
+% b = numerator polynomial coefficients of Ha(s)
+% a = denominator polynomial coefficients of Ha(s)
+% N = Order of the Butterworth Filter
+% Omegac = Cutoff frequency in radians/sec
+%
+[z,p,k] = buttap(N);
+p = p*Omegac;
+k = k*Omegac^N;
+B = real(poly(z));
+b0 = k; b = k*B;
+a = real(poly(p));
+end
+%% Function for ButterWorth Design2
+function [b,a] = afd_butt(Wp,Ws,Rp,As);
+% Analog Lowpass Filter Design: Butterworth
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% [b,a] = afd_butt(Wp,Ws,Rp,As);
+% b = Numerator coefficients of Ha(s)
+% a = Denominator coefficients of Ha(s)
+% Wp = Passband edge frequency in rad/sec; Wp > 0
+% Ws = Stopband edge frequency in rad/sec; Ws > Wp > 0
+% Rp = Passband ripple in +dB; (Rp > 0)
+% As = Stopband attenuation in +dB; (As > 0)
+%
+if Wp <= 0
+error('Passband edge must be larger than 0')
+end
+if Ws <= Wp
+error('Stopband edge must be larger than Passband edge')
+end
+if (Rp <= 0) || (As < 0)
+error('PB ripple and/or SB attenuation ust be larger than 0')
+end
+N = ceil((log10((10^(Rp/10)-1)/(10^(As/10)-1)))/(2*log10(Wp/Ws)));
+fprintf('\n Butterworth Filter Order for Part A = %2.0f \n',N)
+OmegaC = Wp/((10^(Rp/10)-1)^(1/(2*N)));
+[b,a]=u_buttap(N,OmegaC);
+end
+%% Function Direct to Cascade Form
+function [C,B,A] = sdir2cas(b,a);
+% DIRECT-form to CASCADE-form conversion in s-plane
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% [C,B,A] = sdir2cas(b,a)
+% C = gain coefficient
+% B = K by 3 matrix of real coefficients containing bk’s
+% A = K by 3 matrix of real coefficients containing ak’s
+% b = numerator polynomial coefficients of DIRECT form
+% a = denominator polynomial coefficients of DIRECT form
+%
+Na = length(a)-1; Nb = length(b)-1;
+% compute gain coefficient C
+b0 = b(1); b = b/b0; a0 = a(1); a = a/a0; C = b0/a0;
+%
+% Denominator second-order sections:
+p= cplxpair(roots(a)); K = floor(Na/2);
+ if K*2 == Na % Computation when Na is even
+   A = zeros(K,3);
+   for n=1:2:Na
+      Arow = p(n:1:n+1,:); Arow = poly(Arow);
+      A(fix((n+1)/2),:) = real(Arow);
+   end
+ elseif Na == 1 % Computation when Na = 1
+   A = [0 real(poly(p))];
+ else % Computation when Na is odd and > 1
+    A = zeros(K+1,3);
+    for n=1:2:2*K
+       Arow = p(n:1:n+1,:); Arow = poly(Arow);
+       A(fix((n+1)/2),:) = real(Arow);
+    end
+    A(K+1,:) = [0 real(poly(p(Na)))];
+  end
+% Numerator second-order sections:
+   z = cplxpair(roots(b)); K = floor(Nb/2);
+   if Nb == 0 % Computation when Nb = 0
+      B = [0 0 poly(z)];
+   elseif K*2 == Nb % Computation when Nb is even
+      B = zeros(K,3);
+      for n=1:2:Nb
+          Brow = z(n:1:n+1,:); Brow = poly(Brow);
+          B(fix((n+1)/2),:) = real(Brow);
+      end
+   elseif Nb == 1 % Computation when Nb = 1
+        B = [0 real(poly(z))];
+     else % Computation when Nb is odd and > 1
+        B = zeros(K+1,3);
+        for n=1:2:2*K
+Brow = z(n:1:n+1,:); Brow = poly(Brow);
+B(fix((n+1)/2),:) = real(Brow);
+        end
+           B(K+1,:) = [0 real(poly(z(Nb)))];
+   end
+end
+
+##### SOURCE END #####
+--></body></html>

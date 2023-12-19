@@ -1,0 +1,262 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Digital Signal Processing MATLAB HW - q2</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-23"><meta name="DC.source" content="DSP0_MATLAB_HW1_Q2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Digital Signal Processing MATLAB HW - q2</h1><!--introduction--><p>Professor: Dr. Sheikhzadeh Author: [SeyedAli] - [SeyedHosseini] E-mail: [alisnake@aut.ac.ir]  %which I`m about to change ASAP University: Amirkabir University of Technology</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear recent data</a></li><li><a href="#2">Verifying Variables</a></li><li><a href="#3">Part A finding and plotting Y(jw)</a></li><li><a href="#4">Part B : determine and plot h(n) and y(n)</a></li><li><a href="#5">Part C : Determine and plot y(n) with solving difference equation</a></li><li><a href="#6">Comprasion between y[n] and y1[n]</a></li><li><a href="#7">Part D : Plot DTFT magnitude and phase of y(n) that achieved in last section.</a></li></ul></div><h2 id="1">Clear recent data</h2><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="2">Verifying Variables</h2><pre class="codeinput">clc;
+n = 0 : 1 : 48; <span class="comment">% time defenition</span>
+x = 2 + (0.5).^n; <span class="comment">% x(n) = [2 + (0.5)^n]*u(n)</span>
+b = [0.45 0.4 -1]; <span class="comment">%y(n)&#8722; 0.4y(n&#8722;1)&#8722; 0.45y(n&#8722;2)</span>
+a = [1 -0.4 -0.45]; <span class="comment">%0.45x(n)+ 0.4x(n&#8722;1)&#8722; x(n&#8722;2)</span>
+<span class="comment">%To compute and plot impulse response, MATLAB provides the function impz. When invoked by</span>
+h = impz(b,a,n);
+h = h'; <span class="comment">%now h is a row of numbers</span>
+w = -pi : pi/24 : pi; <span class="comment">%vector of frequencies</span>
+</pre><h2 id="3">Part A finding and plotting Y(jw)</h2><pre class="codeinput">clc;
+X = fftshift(fft(x)); <span class="comment">%creating zero phase fft of x(n)</span>
+H = fftshift(fft(h)); <span class="comment">%creating zero phase fft of h(n)</span>
+Y = H.*X; <span class="comment">%creating Y(e^jw)</span>
+
+figure(1)
+subplot(211)
+plot(w, abs(Y),<span class="string">'r'</span>)
+title(<span class="string">"Amp of Y(e^j*w)"</span>)
+axis([-5 5 0 70])
+grid <span class="string">on</span>;
+xlabel(<span class="string">'radians'</span>)
+ylabel(<span class="string">'Magnitude'</span>)
+
+subplot(212)
+plot(w, phase(Y),<span class="string">'b'</span>)
+title(<span class="string">"phase of Y(e^j*w)"</span>)
+axis([-5 5 -11 5])
+xlabel(<span class="string">'radians'</span>)
+ylabel(<span class="string">'Phase'</span>)
+grid <span class="string">on</span>;
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW1_Q2_01.png" alt=""> <h2 id="4">Part B : determine and plot h(n) and y(n)</h2><pre class="codeinput">figure(2)
+subplot(211)
+stem(n,h,<span class="string">'k'</span>)
+title(<span class="string">"h[n] in time domain"</span>)
+grid <span class="string">on</span>;
+axis([0 15 -2 4])
+xlabel(<span class="string">"time"</span>)
+ylabel(<span class="string">"amplitude"</span>)
+
+y = conv(x,h); <span class="comment">%y(n) = x(n) * h(n)</span>
+subplot(212)
+stem(y,<span class="string">'r'</span>)
+title(<span class="string">"y[n] in time domain"</span>)
+grid <span class="string">on</span>;
+axis([0 35 -2 3])
+xlabel(<span class="string">"time"</span>)
+ylabel(<span class="string">"amplitude"</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW1_Q2_02.png" alt=""> <h2 id="5">Part C : Determine and plot y(n) with solving difference equation</h2><pre class="codeinput"><span class="comment">%A function called filter is available to solve difference equations numerically,</span>
+<span class="comment">%given the input and the difference equation coefficients. In its</span>
+<span class="comment">%simplest form this function is invoked by</span>
+y1 = filter(b,a,x); <span class="comment">%extra help from book page 49</span>
+figure(3)
+stem(n,y1,<span class="string">'b'</span>)
+title(<span class="string">"y1[n] in time domain"</span>)
+grid <span class="string">on</span>;
+axis([0 35 -2 3])
+xlabel(<span class="string">"time"</span>)
+ylabel(<span class="string">"amplitude"</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW1_Q2_03.png" alt=""> <h2 id="6">Comprasion between y[n] and y1[n]</h2><pre class="codeinput">figure(4)
+stem(y1,<span class="string">'b'</span>)
+hold <span class="string">on</span>;
+stem(y,<span class="string">'*'</span>)
+title(<span class="string">"y1[n] = y[n] in time domain"</span>)
+grid <span class="string">on</span>;
+axis([0 35 -2 3])
+xlabel(<span class="string">"time"</span>)
+ylabel(<span class="string">"amplitude"</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW1_Q2_04.png" alt=""> <h2 id="7">Part D : Plot DTFT magnitude and phase of y(n) that achieved in last section.</h2><pre class="codeinput">Y1 = fftshift(fft(y1));
+figure(5)
+subplot(211)
+plot(w, abs(Y1),<span class="string">'r'</span>)
+title(<span class="string">"Amp of Y1(e^j*w)"</span>)
+axis([-4 4 0 70])
+grid <span class="string">on</span>;
+xlabel(<span class="string">'radians'</span>)
+ylabel(<span class="string">'Magnitude'</span>)
+
+subplot(212)
+plot(w, phase(Y),<span class="string">'g'</span>)
+title(<span class="string">"Phase of Y1(e^j*w)"</span>)
+axis([-5 5 -10 10])
+grid <span class="string">on</span>;
+xlabel(<span class="string">'radians'</span>)
+ylabel(<span class="string">'Phase'</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW1_Q2_05.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Digital Signal Processing MATLAB HW - q2
+% Professor: Dr. Sheikhzadeh
+% Author: [SeyedAli] - [SeyedHosseini]
+% E-mail: [alisnake@aut.ac.ir]  %which I`m about to change ASAP
+% University: Amirkabir University of Technology
+
+%% Clear recent data
+clear; close all; clc; 
+%% Verifying Variables
+clc;
+n = 0 : 1 : 48; % time defenition
+x = 2 + (0.5).^n; % x(n) = [2 + (0.5)^n]*u(n)
+b = [0.45 0.4 -1]; %y(n)− 0.4y(n−1)− 0.45y(n−2)
+a = [1 -0.4 -0.45]; %0.45x(n)+ 0.4x(n−1)− x(n−2)
+%To compute and plot impulse response, MATLAB provides the function impz. When invoked by
+h = impz(b,a,n); 
+h = h'; %now h is a row of numbers
+w = -pi : pi/24 : pi; %vector of frequencies
+%% Part A finding and plotting Y(jw)
+clc;
+X = fftshift(fft(x)); %creating zero phase fft of x(n)
+H = fftshift(fft(h)); %creating zero phase fft of h(n)
+Y = H.*X; %creating Y(e^jw)
+
+figure(1)
+subplot(211)
+plot(w, abs(Y),'r')
+title("Amp of Y(e^j*w)")
+axis([-5 5 0 70])
+grid on;
+xlabel('radians')
+ylabel('Magnitude')
+
+subplot(212)
+plot(w, phase(Y),'b')
+title("phase of Y(e^j*w)")
+axis([-5 5 -11 5])
+xlabel('radians')
+ylabel('Phase')
+grid on;
+%% Part B : determine and plot h(n) and y(n)
+figure(2)
+subplot(211)
+stem(n,h,'k')
+title("h[n] in time domain")
+grid on;
+axis([0 15 -2 4])
+xlabel("time")
+ylabel("amplitude")
+
+y = conv(x,h); %y(n) = x(n) * h(n)
+subplot(212)
+stem(y,'r')
+title("y[n] in time domain")
+grid on;
+axis([0 35 -2 3])
+xlabel("time")
+ylabel("amplitude")
+
+%% Part C : Determine and plot y(n) with solving difference equation 
+%A function called filter is available to solve difference equations numerically,
+%given the input and the difference equation coefficients. In its
+%simplest form this function is invoked by
+y1 = filter(b,a,x); %extra help from book page 49
+figure(3)
+stem(n,y1,'b')
+title("y1[n] in time domain")
+grid on;
+axis([0 35 -2 3])
+xlabel("time")
+ylabel("amplitude")
+
+%% Comprasion between y[n] and y1[n]
+figure(4)
+stem(y1,'b')
+hold on;
+stem(y,'*')
+title("y1[n] = y[n] in time domain")
+grid on;
+axis([0 35 -2 3])
+xlabel("time")
+ylabel("amplitude")
+
+%% Part D : Plot DTFT magnitude and phase of y(n) that achieved in last section.
+
+Y1 = fftshift(fft(y1));
+figure(5)
+subplot(211)
+plot(w, abs(Y1),'r')
+title("Amp of Y1(e^j*w)")
+axis([-4 4 0 70])
+grid on;
+xlabel('radians')
+ylabel('Magnitude')
+
+subplot(212)
+plot(w, phase(Y),'g')
+title("Phase of Y1(e^j*w)")
+axis([-5 5 -10 10])
+grid on;
+xlabel('radians')
+ylabel('Phase')
+
+
+##### SOURCE END #####
+--></body></html>

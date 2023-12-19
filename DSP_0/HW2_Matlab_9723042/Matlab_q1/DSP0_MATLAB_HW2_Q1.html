@@ -1,0 +1,414 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Digital Signal Processing MATLAB HW2 - q1</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-10"><meta name="DC.source" content="DSP0_MATLAB_HW2_Q1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Digital Signal Processing MATLAB HW2 - q1</h1><!--introduction--><p>Professor: Dr. Sheikhzadeh Author: [SeyedAli] - [SeyedHosseini] E-mail: [alisnake@aut.ac.ir]  %which I`m about to change ASAP University: Amirkabir University of Technology</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear recent data</a></li><li><a href="#2">Part A</a></li><li><a href="#3">plots</a></li><li><a href="#4">Part B (Kaiser Design)</a></li><li><a href="#5">Plots</a></li><li><a href="#6">Part C</a></li><li><a href="#7">Function of Ideal Low Pass Filter</a></li><li><a href="#8">Function for Frequency Response Calculations</a></li></ul></div><h2 id="1">Clear recent data</h2><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="2">Part A</h2><pre class="codeinput">wp = 0.2*pi; <span class="comment">%Frequency of Passing</span>
+ws = 0.4*pi; <span class="comment">%Frequency of Stoping</span>
+tr_width = ws - wp; <span class="comment">%Transition Band</span>
+Mb = ceil(11*pi/tr_width) + 1 ; <span class="comment">% Length Of Window With Exact Formula in Table 7.1 of Signal Processing Book</span>
+nb=[0:1:Mb-1] ; <span class="comment">%Samples</span>
+display(Mb)
+<span class="comment">%</span>
+wc = (ws+wp)/2 ; <span class="comment">% Ideal LPF cutoff frequency</span>
+hdb = ideal_lp(wc,Mb); <span class="comment">%Impulse Response of Desierd h(n)(BlackMan)</span>
+w_black = (blackman(Mb))'; <span class="comment">%blackman window with M = 56 but we must transpose it in order to stop miscalculation</span>
+hb = hdb .* w_black; <span class="comment">%Impulse Response of Designed Filter</span>
+[db,mag,pha,grd,w] = freqz_m(hb,[1]); <span class="comment">%Modified Version of Frequency domain response</span>
+delta_w = 2*pi/1000; <span class="comment">%Minimum of Error in PassBand Magnitude</span>
+</pre><pre class="codeoutput">
+Mb =
+
+    56
+
+</pre><h2 id="3">plots</h2><pre class="codeinput">figure(1)
+subplot(2,2,1);
+stem(nb,hdb,<span class="string">"r*"</span>); grid <span class="string">on</span>
+title(<span class="string">'Ideal Impulse Response'</span>)
+axis([0 Mb-1 -0.2 0.4]);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'hd_blackman(n)'</span>);
+
+subplot(2,2,2);
+stem(nb,w_black); grid <span class="string">on</span>
+title(<span class="string">'BlackMan'</span>)
+axis([0 Mb-1 -0.1 1.2]);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'w blackman(n)'</span>);
+
+subplot(2,2,3);
+stem(nb,hb,<span class="string">"r"</span>); grid <span class="string">on</span>
+title(<span class="string">'Actual Impulse Response'</span>);
+axis([0 Mb-1 -0.2 0.4]);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'hb(n)'</span>);
+
+subplot(2,2,4);
+plot(w/pi,db);
+title(<span class="string">'Magnitude Response in dB'</span>);
+grid <span class="string">on</span>;
+axis([0 1 -125 10]);
+xlabel(<span class="string">'frequency in pi units'</span>);
+ylabel(<span class="string">'Decibels'</span>);
+
+<span class="comment">%Actual Rp and As</span>
+Rp = -(min(db(1:1:wp/delta_w+1))); <span class="comment">% Actual Passband Ripple</span>
+As = -round(max(db(ws/delta_w+1:1:501))); <span class="comment">% Min Stopband attenuation</span>
+display(Rp)
+display(As)
+</pre><pre class="codeoutput">
+Rp =
+
+    0.0033
+
+
+As =
+
+    74
+
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q1_01.png" alt=""> <h2 id="4">Part B (Kaiser Design)</h2><pre class="codeinput">wp = 0.2*pi; <span class="comment">%PassBand Frequency</span>
+ws = 0.4*pi; <span class="comment">%StopBand Frequency</span>
+As = 60; <span class="comment">%Desired StopBand Attenuation</span>
+tr_width = ws - wp; <span class="comment">%Transition Band</span>
+Mk = ceil((As-7.95)/(2.285*tr_width)+1)  +  1 ; <span class="comment">% Length Of Window</span>
+display(Mk)
+
+nk=[0:1:Mk-1]; <span class="comment">%Smaples</span>
+beta = 0.1102*(As-8.7) ; <span class="comment">%For As &gt;= 50</span>
+display(beta)
+wc = (ws+wp)/2; <span class="comment">%CutOff Frequency</span>
+hdk = ideal_lp(wc,Mk); <span class="comment">%Desired h(n)</span>
+w_kai = (kaiser(Mk,beta))';<span class="comment">% Kaiser Window with M = 39 (Notice that length of kaiser window is less than Blackman)</span>
+hk = hdk .* w_kai; <span class="comment">%Impulse response of Desired filter h(n)</span>
+[db,mag,pha,grd,w] = freqz_m(hk,[1]);<span class="comment">%Modified Version of Frequency domain response</span>
+delta_w = 2*pi/1000; <span class="comment">%Minimum of Error in PassBand Magnitude</span>
+As_k = -round(max(db(ws/delta_w+1:1:501))) <span class="comment">% Min Stopband Attenuation</span>
+</pre><pre class="codeoutput">
+Mk =
+
+    39
+
+
+beta =
+
+    5.6533
+
+
+As_k =
+
+    59
+
+</pre><h2 id="5">Plots</h2><pre class="codeinput">figure(2)
+subplot(2,2,1);
+stem(nk,hdk,<span class="string">"r-"</span>); grid <span class="string">on</span>
+title(<span class="string">'Ideal Impulse Response'</span>)
+axis([0 Mk-1 -0.15 0.4]);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'hd_kaiser(n)'</span>)
+
+subplot(2,2,2);
+stem(nk,w_kai);grid <span class="string">on</span>
+title(<span class="string">'Kaiser Window'</span>)
+axis([0 Mk-1 -0.5 1.2]);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'w(n)'</span>)
+
+subplot(2,2,3);
+stem(nk,hk,<span class="string">"ko"</span>);
+title(<span class="string">'Actual Impulse Response'</span>);grid <span class="string">on</span>
+axis([0 Mk-1 -0.2 0.35]);
+xlabel(<span class="string">'n'</span>);
+ylabel(<span class="string">'h_kaiser(n)'</span>)
+
+subplot(2,2,4);
+plot(w/pi,db);
+title(<span class="string">'Magnitude Response in dB'</span>);grid <span class="string">on</span>
+axis([0 1 -110 15]);
+xlabel(<span class="string">'frequency in pi units'</span>);
+ylabel(<span class="string">'Decibels'</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q1_02.png" alt=""> <h2 id="6">Part C</h2><pre class="codeinput">[voice , Fs] = audioread(<span class="string">'multi_tone.wav'</span>) ;<span class="comment">%STORING AUDIO in Voice</span>
+figure(3)
+freqz(voice); <span class="comment">%Plotting the Frequeny Response of Voice itself</span>
+title(<span class="string">'Voice frequency Response'</span>)
+
+voice_b = filter(hb,1,voice); <span class="comment">%using filter command to convolution h_blackman and voice</span>
+voice_b = voice_b' ;
+figure(4)
+freqz(voice_b); <span class="comment">%Plotting the Frequeny Response of h_blackman * voice</span>
+title(<span class="string">'h blackman * Voice Frequency Response'</span>)
+
+voice_k = filter(hk,1,voice); <span class="comment">%using filter command to convolution h_kaiser and voice</span>
+voice_k = voice_k' ;
+figure(5)
+freqz(voice_k); <span class="comment">%Plotting the Frequeny Response of h_kaiser * voice</span>
+title(<span class="string">'h kaiser * Voice Frequency Response'</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q1_03.png" alt=""> <img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q1_04.png" alt=""> <img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q1_05.png" alt=""> <h2 id="7">Function of Ideal Low Pass Filter</h2><pre class="codeinput"><span class="keyword">function</span> hd = ideal_lp(wc,M);
+<span class="comment">% Ideal LowPass filter computation</span>
+<span class="comment">% --------------------------------</span>
+<span class="comment">% [hd] = ideal_lp(wc,M)</span>
+<span class="comment">% hd = ideal impulse response between 0 to M-1</span>
+<span class="comment">% wc = cutoff frequency in radians</span>
+<span class="comment">% M = length of the ideal filter</span>
+<span class="comment">%</span>
+alpha = (M-1)/2;
+n = [0:1:(M-1)]; <span class="comment">%time samples</span>
+m = n - alpha;
+fc = wc/pi; <span class="comment">%Cut off frequency in Hz</span>
+hd = fc*sinc(fc*m); <span class="comment">%Creating desired H Function</span>
+<span class="keyword">end</span>
+</pre><h2 id="8">Function for Frequency Response Calculations</h2><pre class="codeinput"><span class="keyword">function</span> [db,mag,pha,grd,w] = freqz_m(b,a);
+<span class="comment">% Modified version of freqz subroutine</span>
+<span class="comment">% ------------------------------------</span>
+<span class="comment">% [db,mag,pha,grd,w] = freqz_m(b,a);</span>
+<span class="comment">% db = Relative magnitude in dB computed over 0 to pi radians</span>
+<span class="comment">% mag = absolute magnitude computed over 0 to pi radians</span>
+<span class="comment">% pha = Phase response in radians over 0 to pi radians</span>
+<span class="comment">% grd = Group delay over 0 to pi radians</span>
+<span class="comment">% w = 501 frequency samples between 0 to pi radians</span>
+<span class="comment">% b = numerator polynomial of H(z) (for FIR: b=h)</span>
+<span class="comment">% a = denominator polynomial of H(z) (for FIR: a=[1])</span>
+<span class="comment">%</span>
+[H,w] = freqz(b,a,1000,<span class="string">'whole'</span>);
+H = (H(1:1:501));
+w = (w(1:1:501));
+mag = abs(H);
+db = 20*log10((mag+eps)/max(mag));
+pha = angle(H);
+grd = grpdelay(b,a,w);
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Digital Signal Processing MATLAB HW2 - q1
+% Professor: Dr. Sheikhzadeh
+% Author: [SeyedAli] - [SeyedHosseini]
+% E-mail: [alisnake@aut.ac.ir]  %which I`m about to change ASAP
+% University: Amirkabir University of Technology
+
+%% Clear recent data
+clear; close all; clc;
+
+%% Part A
+%
+wp = 0.2*pi; %Frequency of Passing
+ws = 0.4*pi; %Frequency of Stoping
+tr_width = ws - wp; %Transition Band
+Mb = ceil(11*pi/tr_width) + 1 ; % Length Of Window With Exact Formula in Table 7.1 of Signal Processing Book
+nb=[0:1:Mb-1] ; %Samples
+display(Mb)
+%
+wc = (ws+wp)/2 ; % Ideal LPF cutoff frequency
+hdb = ideal_lp(wc,Mb); %Impulse Response of Desierd h(n)(BlackMan)
+w_black = (blackman(Mb))'; %blackman window with M = 56 but we must transpose it in order to stop miscalculation
+hb = hdb .* w_black; %Impulse Response of Designed Filter
+[db,mag,pha,grd,w] = freqz_m(hb,[1]); %Modified Version of Frequency domain response
+delta_w = 2*pi/1000; %Minimum of Error in PassBand Magnitude
+
+%% plots
+figure(1)
+subplot(2,2,1); 
+stem(nb,hdb,"r*"); grid on
+title('Ideal Impulse Response')
+axis([0 Mb-1 -0.2 0.4]); 
+xlabel('n'); 
+ylabel('hd_blackman(n)');
+
+subplot(2,2,2);
+stem(nb,w_black); grid on
+title('BlackMan')
+axis([0 Mb-1 -0.1 1.2]); 
+xlabel('n'); 
+ylabel('w blackman(n)');
+
+subplot(2,2,3); 
+stem(nb,hb,"r"); grid on
+title('Actual Impulse Response');
+axis([0 Mb-1 -0.2 0.4]);
+xlabel('n'); 
+ylabel('hb(n)');
+
+subplot(2,2,4);
+plot(w/pi,db);
+title('Magnitude Response in dB');
+grid on;
+axis([0 1 -125 10]); 
+xlabel('frequency in pi units');
+ylabel('Decibels');
+
+%Actual Rp and As
+Rp = -(min(db(1:1:wp/delta_w+1))); % Actual Passband Ripple
+As = -round(max(db(ws/delta_w+1:1:501))); % Min Stopband attenuation
+display(Rp)
+display(As)
+
+%% Part B (Kaiser Design)
+
+wp = 0.2*pi; %PassBand Frequency
+ws = 0.4*pi; %StopBand Frequency
+As = 60; %Desired StopBand Attenuation
+tr_width = ws - wp; %Transition Band
+Mk = ceil((As-7.95)/(2.285*tr_width)+1)  +  1 ; % Length Of Window 
+display(Mk)
+
+nk=[0:1:Mk-1]; %Smaples
+beta = 0.1102*(As-8.7) ; %For As >= 50
+display(beta)
+wc = (ws+wp)/2; %CutOff Frequency
+hdk = ideal_lp(wc,Mk); %Desired h(n)
+w_kai = (kaiser(Mk,beta))';% Kaiser Window with M = 39 (Notice that length of kaiser window is less than Blackman)
+hk = hdk .* w_kai; %Impulse response of Desired filter h(n)
+[db,mag,pha,grd,w] = freqz_m(hk,[1]);%Modified Version of Frequency domain response
+delta_w = 2*pi/1000; %Minimum of Error in PassBand Magnitude
+As_k = -round(max(db(ws/delta_w+1:1:501))) % Min Stopband Attenuation
+
+%% Plots
+
+figure(2)
+subplot(2,2,1);
+stem(nk,hdk,"r-"); grid on
+title('Ideal Impulse Response')
+axis([0 Mk-1 -0.15 0.4]);
+xlabel('n');
+ylabel('hd_kaiser(n)')
+
+subplot(2,2,2);
+stem(nk,w_kai);grid on
+title('Kaiser Window')
+axis([0 Mk-1 -0.5 1.2]);
+xlabel('n'); 
+ylabel('w(n)')
+
+subplot(2,2,3);
+stem(nk,hk,"ko");
+title('Actual Impulse Response');grid on
+axis([0 Mk-1 -0.2 0.35]);
+xlabel('n'); 
+ylabel('h_kaiser(n)')
+
+subplot(2,2,4);
+plot(w/pi,db);
+title('Magnitude Response in dB');grid on
+axis([0 1 -110 15]); 
+xlabel('frequency in pi units');
+ylabel('Decibels')
+
+%% Part C
+[voice , Fs] = audioread('multi_tone.wav') ;%STORING AUDIO in Voice 
+figure(3)
+freqz(voice); %Plotting the Frequeny Response of Voice itself
+title('Voice frequency Response')
+
+voice_b = filter(hb,1,voice); %using filter command to convolution h_blackman and voice
+voice_b = voice_b' ;
+figure(4)
+freqz(voice_b); %Plotting the Frequeny Response of h_blackman * voice
+title('h blackman * Voice Frequency Response')
+
+voice_k = filter(hk,1,voice); %using filter command to convolution h_kaiser and voice
+voice_k = voice_k' ;
+figure(5)
+freqz(voice_k); %Plotting the Frequeny Response of h_kaiser * voice
+title('h kaiser * Voice Frequency Response')
+
+%% Function of Ideal Low Pass Filter
+function hd = ideal_lp(wc,M);
+% Ideal LowPass filter computation
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% [hd] = ideal_lp(wc,M)
+% hd = ideal impulse response between 0 to M-1
+% wc = cutoff frequency in radians
+% M = length of the ideal filter
+%
+alpha = (M-1)/2;  
+n = [0:1:(M-1)]; %time samples
+m = n - alpha; 
+fc = wc/pi; %Cut off frequency in Hz
+hd = fc*sinc(fc*m); %Creating desired H Function
+end
+%% Function for Frequency Response Calculations
+function [db,mag,pha,grd,w] = freqz_m(b,a);
+% Modified version of freqz subroutine
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% [db,mag,pha,grd,w] = freqz_m(b,a);
+% db = Relative magnitude in dB computed over 0 to pi radians
+% mag = absolute magnitude computed over 0 to pi radians
+% pha = Phase response in radians over 0 to pi radians
+% grd = Group delay over 0 to pi radians
+% w = 501 frequency samples between 0 to pi radians
+% b = numerator polynomial of H(z) (for FIR: b=h)
+% a = denominator polynomial of H(z) (for FIR: a=[1])
+%
+[H,w] = freqz(b,a,1000,'whole');
+H = (H(1:1:501));
+w = (w(1:1:501));
+mag = abs(H); 
+db = 20*log10((mag+eps)/max(mag));
+pha = angle(H); 
+grd = grpdelay(b,a,w);
+end
+##### SOURCE END #####
+--></body></html>

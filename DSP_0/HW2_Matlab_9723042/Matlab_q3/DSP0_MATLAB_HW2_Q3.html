@@ -1,0 +1,339 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Digital Signal Processing MATLAB HW2 - q3</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-07-11"><meta name="DC.source" content="DSP0_MATLAB_HW2_Q3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Digital Signal Processing MATLAB HW2 - q3</h1><!--introduction--><p>Professor: Dr. Sheikhzadeh Author: [SeyedAli] - [SeyedHosseini] E-mail: [alisnake@aut.ac.ir]  %which I`m about to change ASAP University: Amirkabir University of Technology</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear recent data</a></li><li><a href="#2">Part D</a></li><li><a href="#3">1st signals</a></li><li><a href="#4">plots</a></li><li><a href="#5">2nd signals</a></li><li><a href="#6">plots</a></li><li><a href="#7">Part E</a></li><li><a href="#8">plots for part E</a></li><li><a href="#9">Part A</a></li><li><a href="#10">Part B</a></li><li><a href="#11">Part C</a></li></ul></div><h2 id="1">Clear recent data</h2><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="2">Part D</h2><pre class="codeinput">n = 1:21;
+</pre><h2 id="3">1st signals</h2><pre class="codeinput"><span class="comment">%time domain</span>
+x1 = zeros(1,21);
+x1(4:7) = 1; <span class="comment">%Rectangular pulse with length 4</span>
+h1 = zeros(1,21);
+h1(4:11) = 1; <span class="comment">%Rectangular pulse with length 8</span>
+N1 = 21;
+y1 = cir_conv(x1,h1,N1); <span class="comment">%Using Part C function</span>
+
+<span class="comment">%freq domain</span>
+X1 = fft(x1);  <span class="comment">%calculation of DFT</span>
+H1 = fft(h1); <span class="comment">%calculation of DFT</span>
+Y1 = X1.*H1;
+y_1 = (ifft(Y1));  <span class="comment">%Inverse DFT</span>
+</pre><h2 id="4">plots</h2><pre class="codeinput">figure(1)
+subplot(211)
+stem(n,y1,<span class="string">"k"</span>);grid <span class="string">on</span>;
+title(<span class="string">"Obtained y1 from Cir Conv"</span>)
+xlabel(<span class="string">"n"</span>)
+ylabel(<span class="string">"x1*h1"</span>)
+axis([0 25 0 5])
+
+subplot(212)
+stem(n,y_1,<span class="string">"b"</span>);grid <span class="string">on</span>;
+title(<span class="string">"Obtained y1 from Inverse DFT"</span>)
+xlabel(<span class="string">"n"</span>)
+ylabel(<span class="string">"Inverse Dft (Y1)"</span>)
+axis([0 25 0 5])
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q3_01.png" alt=""> <h2 id="5">2nd signals</h2><pre class="codeinput"><span class="comment">%time domain</span>
+x2 = zeros(1,21);
+x2(5:12) = 1;
+h2 = zeros(1,21);
+h2(5:15) = 1; <span class="comment">%Rectangular pulse with length 8</span>
+N2 = 21;
+y2 = cir_conv(x2,h2,N2); <span class="comment">%Using Part C function</span>
+
+<span class="comment">%freq domain</span>
+X2 = fft(x2);  <span class="comment">%calculation of DFT</span>
+H2 = fft(h2); <span class="comment">%calculation of DFT</span>
+Y2 = X2.*H2;
+y_2 = (ifft(Y2));  <span class="comment">%Inverse DFT</span>
+</pre><h2 id="6">plots</h2><pre class="codeinput">figure(2)
+subplot(211)
+stem(n,y2,<span class="string">"k"</span>);grid <span class="string">on</span>;
+title(<span class="string">"Obtained y2 from Cir Conv"</span>)
+xlabel(<span class="string">"n"</span>)
+ylabel(<span class="string">"x2*h2"</span>)
+axis([0 25 0 10])
+
+subplot(212)
+stem(n,y_2,<span class="string">"b"</span>);grid <span class="string">on</span>;
+title(<span class="string">"Obtained y2 from Inverse DFT"</span>)
+xlabel(<span class="string">"n"</span>)
+ylabel(<span class="string">"Inverse Dft (Y1)"</span>)
+axis([0 25 0 10])
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q3_02.png" alt=""> <h2 id="7">Part E</h2><pre class="codeinput">y_l1 = conv(x1,h1);<span class="comment">% Linear Convolution Of x1*h1</span>
+l1 = 1 :  length(y_l1);
+
+y_l2 = conv(x2,h2);<span class="comment">% Linear Convolution Of x1*h1</span>
+l2 = 1 : length(y_l2);
+</pre><h2 id="8">plots for part E</h2><pre class="codeinput">figure(3)
+subplot(221)
+stem(n,y1,<span class="string">"k"</span>);grid <span class="string">on</span>;
+title(<span class="string">"Obtained y1(n) from Cir Conv"</span>)
+xlabel(<span class="string">"n"</span>)
+ylabel(<span class="string">"y1(n) = x1*&amp;h1"</span>)
+axis([0 25 0 5])
+
+subplot(222)
+stem(l1,y_l1,<span class="string">"r"</span>);grid <span class="string">on</span>;
+title(<span class="string">"Obtained y1(n) from Linear Conv"</span>)
+xlabel(<span class="string">"n"</span>)
+ylabel(<span class="string">"y(1) = x1*h1"</span>)
+axis([0 25 0 5])
+
+subplot(223)
+stem(n,y2,<span class="string">"b"</span>);grid <span class="string">on</span>;
+title(<span class="string">"Obtained y2(n) from Cir Conv"</span>)
+xlabel(<span class="string">"n"</span>)
+ylabel(<span class="string">"y2(n) = x2*&amp;h2"</span>)
+axis([-5 25 0 10])
+
+subplot(224)
+stem(l2,y_l2,<span class="string">"*"</span>);grid <span class="string">on</span>;
+title(<span class="string">"Obtained y2(n) from Linear Conv"</span>)
+xlabel(<span class="string">"n"</span>)
+ylabel(<span class="string">"y2(n) = x2*h2"</span>)
+axis([-5 25 0 10])
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW2_Q3_03.png" alt=""> <h2 id="9">Part A</h2><pre class="codeinput"><span class="keyword">function</span> cflipped_sig = cflip(sig,N)
+    cflipped_sig = zeros(1,N) ; <span class="comment">%allocation</span>
+    cflipped_sig(1) = sig(1) ;
+    <span class="keyword">for</span> n = 1 : N -1
+        cflipped_sig(n + 1) = sig(N - n + 1);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><h2 id="10">Part B</h2><pre class="codeinput"><span class="keyword">function</span> cshifted_sig = cshift(sig,m)
+   N = length(sig);<span class="comment">%Length of Signal</span>
+   cshifted_sig = zeros(1,N); <span class="comment">%allocation first</span>
+   <span class="keyword">for</span> n = 1 : floor(N/2)
+      cshifted_sig(n) = sig(N - m + n ); <span class="comment">%x(n) = x(N - m + n)</span>
+   <span class="keyword">end</span>
+    <span class="keyword">for</span> n = floor(N/2) + 1 : N
+      cshifted_sig(n) = sig(-m + n ); <span class="comment">%x(n) = x(-m + n)</span>
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><h2 id="11">Part C</h2><pre class="codeinput"><span class="keyword">function</span> y = cir_conv(sig1, sig2, N)
+     l1 = length(sig1);
+     l2 = length(sig2);
+     sig1 = [ sig1 zeros(1,N - l1)];<span class="comment">%zero padding</span>
+     sig2 = [ sig2 zeros(1,N - l2)];<span class="comment">%zero padding</span>
+     y = zeros(1,N);
+     <span class="keyword">for</span> n = 1 : N
+         <span class="keyword">for</span> m = 1 : N
+             j = mod(n-m,N);
+             j = j + 1;
+             y(n) = y(n) + sig1(m)*sig2(j) ;
+         <span class="keyword">end</span>
+     <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Digital Signal Processing MATLAB HW2 - q3
+% Professor: Dr. Sheikhzadeh
+% Author: [SeyedAli] - [SeyedHosseini]
+% E-mail: [alisnake@aut.ac.ir]  %which I`m about to change ASAP
+% University: Amirkabir University of Technology
+
+%% Clear recent data
+clear; close all; clc;
+
+%% Part D
+n = 1:21;
+%% 1st signals
+%time domain
+x1 = zeros(1,21);
+x1(4:7) = 1; %Rectangular pulse with length 4
+h1 = zeros(1,21);
+h1(4:11) = 1; %Rectangular pulse with length 8
+N1 = 21;
+y1 = cir_conv(x1,h1,N1); %Using Part C function
+
+%freq domain
+X1 = fft(x1);  %calculation of DFT
+H1 = fft(h1); %calculation of DFT
+Y1 = X1.*H1;
+y_1 = (ifft(Y1));  %Inverse DFT
+
+%% plots
+figure(1)
+subplot(211)
+stem(n,y1,"k");grid on;
+title("Obtained y1 from Cir Conv")
+xlabel("n")
+ylabel("x1*h1")
+axis([0 25 0 5])
+
+subplot(212)
+stem(n,y_1,"b");grid on;
+title("Obtained y1 from Inverse DFT")
+xlabel("n")
+ylabel("Inverse Dft (Y1)")
+axis([0 25 0 5])
+
+%% 2nd signals
+%time domain
+x2 = zeros(1,21);
+x2(5:12) = 1;
+h2 = zeros(1,21);
+h2(5:15) = 1; %Rectangular pulse with length 8
+N2 = 21;
+y2 = cir_conv(x2,h2,N2); %Using Part C function
+
+%freq domain
+X2 = fft(x2);  %calculation of DFT
+H2 = fft(h2); %calculation of DFT
+Y2 = X2.*H2;
+y_2 = (ifft(Y2));  %Inverse DFT
+
+%% plots
+figure(2)
+subplot(211)
+stem(n,y2,"k");grid on;
+title("Obtained y2 from Cir Conv")
+xlabel("n")
+ylabel("x2*h2")
+axis([0 25 0 10])
+
+subplot(212)
+stem(n,y_2,"b");grid on;
+title("Obtained y2 from Inverse DFT")
+xlabel("n")
+ylabel("Inverse Dft (Y1)")
+axis([0 25 0 10])
+
+%% Part E
+
+y_l1 = conv(x1,h1);% Linear Convolution Of x1*h1
+l1 = 1 :  length(y_l1);
+
+y_l2 = conv(x2,h2);% Linear Convolution Of x1*h1
+l2 = 1 : length(y_l2);
+
+%% plots for part E
+figure(3)
+subplot(221)
+stem(n,y1,"k");grid on;
+title("Obtained y1(n) from Cir Conv")
+xlabel("n")
+ylabel("y1(n) = x1*&h1")
+axis([0 25 0 5])
+
+subplot(222)
+stem(l1,y_l1,"r");grid on;
+title("Obtained y1(n) from Linear Conv")
+xlabel("n")
+ylabel("y(1) = x1*h1")
+axis([0 25 0 5])
+
+subplot(223)
+stem(n,y2,"b");grid on;
+title("Obtained y2(n) from Cir Conv")
+xlabel("n")
+ylabel("y2(n) = x2*&h2")
+axis([-5 25 0 10])
+
+subplot(224)
+stem(l2,y_l2,"*");grid on;
+title("Obtained y2(n) from Linear Conv")
+xlabel("n")
+ylabel("y2(n) = x2*h2")
+axis([-5 25 0 10])
+%% Part A
+function cflipped_sig = cflip(sig,N)
+    cflipped_sig = zeros(1,N) ; %allocation
+    cflipped_sig(1) = sig(1) ;
+    for n = 1 : N -1 
+        cflipped_sig(n + 1) = sig(N - n + 1);
+    end
+end
+%% Part B
+function cshifted_sig = cshift(sig,m)
+   N = length(sig);%Length of Signal
+   cshifted_sig = zeros(1,N); %allocation first
+   for n = 1 : floor(N/2)
+      cshifted_sig(n) = sig(N - m + n ); %x(n) = x(N - m + n)
+   end
+    for n = floor(N/2) + 1 : N
+      cshifted_sig(n) = sig(-m + n ); %x(n) = x(-m + n)
+   end
+end
+
+%% Part C
+function y = cir_conv(sig1, sig2, N)
+     l1 = length(sig1);
+     l2 = length(sig2);
+     sig1 = [ sig1 zeros(1,N - l1)];%zero padding
+     sig2 = [ sig2 zeros(1,N - l2)];%zero padding
+     y = zeros(1,N);
+     for n = 1 : N
+         for m = 1 : N
+             j = mod(n-m,N);
+             j = j + 1;
+             y(n) = y(n) + sig1(m)*sig2(j) ;
+         end
+     end 
+end
+
+##### SOURCE END #####
+--></body></html>

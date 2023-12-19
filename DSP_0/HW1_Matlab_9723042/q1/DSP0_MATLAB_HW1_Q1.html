@@ -1,0 +1,567 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Digital Signal Processing MATLAB HW - q1</title><meta name="generator" content="MATLAB 9.9"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2021-04-23"><meta name="DC.source" content="DSP0_MATLAB_HW1_Q1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Digital Signal Processing MATLAB HW - q1</h1><!--introduction--><p>Professor: Dr. Sheikhzadeh Author: [SeyedAli] - [SeyedHosseini] E-mail: [alisnake@aut.ac.ir]  %which I`m about to change ASAP University: Amirkabir University of Technology</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Clear recent data</a></li><li><a href="#2">Verifying By Matlab(Part B)</a></li><li><a href="#3">Commutative property</a></li><li><a href="#4">plotting Commutative property</a></li><li><a href="#5">Association property</a></li><li><a href="#6">plotting Association property</a></li><li><a href="#7">Distribution</a></li><li><a href="#8">Plotting Distribution</a></li><li><a href="#9">Identity property</a></li><li><a href="#10">Plotting the Identity</a></li><li><a href="#11">Func ( Convolution in two dimentions)</a></li><li><a href="#12">Function Adding two Signals</a></li><li><a href="#13">Function Step Sequence</a></li><li><a href="#14">Function : Shiffting signal</a></li><li><a href="#15">Function delta</a></li></ul></div><h2 id="1">Clear recent data</h2><pre class="codeinput">clear; close <span class="string">all</span>; clc;
+</pre><h2 id="2">Verifying By Matlab(Part B)</h2><pre class="codeinput"><span class="comment">%define parameters</span>
+<span class="comment">%times</span>
+n1 = -15:35;
+n2 = 0:25;
+n3 = -10:10;
+<span class="comment">%signals</span>
+x11 = cos(pi*n1 / 4);  <span class="comment">%cosine part</span>
+[x12,n12] = stepseq(-5,-15,35); <span class="comment">%step plot : u(n+5)</span>
+[x13,n13] = stepseq(25,-15,35); <span class="comment">%step plot : u(n-25)</span>
+[x14,n14] = sigadd(x12,n12,-x13,n13); <span class="comment">%step plot : u(n+5) - u(n-25)</span>
+x1 = x11.*x14; <span class="comment">% x1(n) = cos(pi*n/4) * {u(n+5) - u(n-25)}</span>
+x21 = 0.9 .^ -n2; <span class="comment">%exponential part</span>
+[x22,n22] = stepseq(0,0,25);  <span class="comment">%step plot : u(n)</span>
+[x23,n23] = stepseq(20,0,25); <span class="comment">%step plot : u(n-20)</span>
+x24 = x22 - x23;   <span class="comment">%step plot : u(n) - u(n-20)</span>
+x2 = x21.*x24;  <span class="comment">%x2(n) = (0.9^-n ) * {u(n) - u(n-20)}</span>
+w = -1 + (1+1)*rand(1,20); <span class="comment">%randomly w(n)</span>
+x3 = round(w.*5); <span class="comment">%x(3) = round[5w(n)]</span>
+</pre><h2 id="3">Commutative property</h2><p>To prove the Commutation property of convolution we must prove that : x1(n)*x2(n) = x2(n)* x1(n) calculate convolution</p><pre class="codeinput">[yc1,nyc1] = conv_m(x1,n1,x2,n2);  <span class="comment">%x1(n) * x2(n)</span>
+[yc2,nyc2] = conv_m(x2,n2,x1,n1);  <span class="comment">%x2(n) * x1(n)</span>
+ycdiff = max(abs(yc1 - yc2));
+display(<span class="string">"y diff is :"</span>)
+display(ycdiff)
+display(<span class="string">"so they are equal"</span>)
+</pre><h2 id="4">plotting Commutative property</h2><pre class="codeinput">clc;
+figure(1);
+subplot(3, 1, 1);
+stem(nyc1 , yc1 , <span class="string">'r.'</span>);
+grid <span class="string">on</span>;
+axis([-20 45 -15 15]);
+title(<span class="string">"x1[n] * x2[n]"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(3, 1, 2);
+stem(nyc2 , yc2 , <span class="string">'b*'</span>);
+grid <span class="string">on</span>;
+axis([-20 45 -15 15]);
+title(<span class="string">"x2[n] * x1[n]"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(3, 1, 3);
+stem(nyc2 , yc2 , <span class="string">'b*'</span>);
+hold <span class="string">on</span>;
+stem(nyc1 , yc1 , <span class="string">'r.'</span>);
+grid <span class="string">on</span>;
+axis([-20 45 -15 15]);
+title(<span class="string">"x2[n] * x1[n] = x1[n]*x2[n]"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">'x2*x1'</span>,<span class="string">'x1*x2'</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW1_Q1_01.png" alt=""> <h2 id="5">Association property</h2><p>To prove the Association property of convolution we must prove that : (x1(n)*x2(n))*x3(n) = x1(n)*(x2(n)*x3(n))</p><pre class="codeinput">[ya1,nya1] = conv_m(x1,n1,x2,n2);  <span class="comment">%y1(n) = x1(n) * x2(n)</span>
+[ya1,nya1] = conv_m(ya1,nya1,x3,n3); <span class="comment">%y1(n) = y1(n) * x3(n) = (x1(n) * x2(n))*x3(n)</span>
+[ya2,nya2] = conv_m(x2,n2,x3,n3);  <span class="comment">%y2(n) = x2(n) * x3(n)</span>
+[ya2,nya2] = conv_m(x1,n1,ya2,nya2); <span class="comment">%y2(n) = y2(n) * x1(n) = x1(n)*(x2(n) * x3(n)) for associations</span>
+ydiff2 = max(abs(ya1 - ya2));
+display(<span class="string">"y_association diff2 is :"</span>)
+display(ydiff2)
+display(<span class="string">"so they are equal"</span>)
+</pre><pre class="codeoutput">    "y_association diff2 is :"
+
+
+ydiff2 =
+
+   5.6843e-14
+
+    "so they are equal"
+
+</pre><h2 id="6">plotting Association property</h2><pre class="codeinput">figure(2);
+subplot(3, 1, 1);
+stem(nya1 , ya1 , <span class="string">'k.'</span>);
+grid <span class="string">on</span>;
+axis([-50 75 -75 75]);
+title(<span class="string">"(x1[n] * x2[n])*x[3]"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(3, 1, 2);
+stem(nya2 , ya2 , <span class="string">'r'</span>);
+grid <span class="string">on</span>;
+axis([-50 75 -75 75]);
+title(<span class="string">"x1[n]*(x2[n]*x[3])"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(3, 1, 3);
+stem(nya2 , ya2 , <span class="string">'b*'</span>);
+hold <span class="string">on</span>;
+stem(nya1 , ya1 , <span class="string">'r.'</span>);
+grid <span class="string">on</span>;
+axis([-50 75 -75 75]);
+title(<span class="string">"(x1[n] * x2[n])*x[3] = x1[n]*(x2[n]*x[3])"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">"(x1[n] * x2[n])*x[3]"</span>,<span class="string">"x1[n]*(x2[n]*x[3])"</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW1_Q1_02.png" alt=""> <h2 id="7">Distribution</h2><pre class="codeinput">clc;
+x3(end+1 : length(x2)) = 0;
+y1d = x3 + x2;
+yd1 = conv(x1,y1d); <span class="comment">%yd1 = x1[n] * (x2[n] + x3[n])</span>
+yd2 = conv(x1,x2) + conv(x1,x3); <span class="comment">%y2d = x1[n]*x2[n] + x1[n]*x3[n]</span>
+ydiffD2 = max(abs(yd1 - yd2));
+display(<span class="string">"y_association diff2 is :"</span>)
+display(ydiffD2)
+display(<span class="string">"so they are equal"</span>)
+n3(end+1 : length(yd1)) = 0;
+</pre><pre class="codeoutput">    "y_association diff2 is :"
+
+
+ydiffD2 =
+
+   8.8818e-15
+
+    "so they are equal"
+
+</pre><h2 id="8">Plotting Distribution</h2><pre class="codeinput">figure(3);
+subplot(3, 1, 1);
+stem( yd1 , <span class="string">'k'</span>);
+grid <span class="string">on</span>;
+axis([20 40 -30 30]);
+title(<span class="string">"(x1[n]  * (x2[n] + x3[n]))"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(3, 1, 2);
+stem( yd2 , <span class="string">'r'</span>);
+grid <span class="string">on</span>;
+axis([20 40 -30 30]);
+title(<span class="string">"(x1[n]  * x2[n] + x1[n]* x3[n]))"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(3, 1, 3);
+stem(yd1 , <span class="string">'k'</span>);
+hold <span class="string">on</span>;
+stem(yd2, <span class="string">'.'</span>);
+grid <span class="string">on</span>;
+axis([20 40 -30 30]);
+title(<span class="string">"(x1[n]  * (x2[n] + x3[n]) = (x1[n]  * x2[n] + x1[n]* x3[n])"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">"(x1[n]  * (x2[n] + x3[n])"</span> ,<span class="string">"(x1[n]  * x2[n] + x1[n]* x3[n])"</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW1_Q1_03.png" alt=""> <h2 id="9">Identity property</h2><pre class="codeinput">clc;
+<span class="comment">% To prove the Identity property of convolution</span>
+<span class="comment">% (x(n)*delta(n - n0)) = x(n - n0)</span>
+n0 = ceil(50*rand(1,1)-0.5);
+[dl,ndl] = impseq(n0,n0,n0); <span class="comment">%delta(n - n0)</span>
+[yI11,nyI11] = conv_m(x1,n1,dl,ndl); <span class="comment">% y1 = x1(n) * delta(n- n0)</span>
+[yI12,nyI12] = sigshift(x1,n1,n0);  <span class="comment">% y2 = x1(n-n0)</span>
+yI1diff = max(abs(yI11 - yI12));
+display(<span class="string">"y_Identity diff2 is :"</span>)
+display(yI1diff)
+display(<span class="string">"As we see, they are equal"</span>)
+</pre><h2 id="10">Plotting the Identity</h2><pre class="codeinput">figure(4);
+subplot(3, 1, 1);
+stem(nyI11 , yI11 , <span class="string">'k*'</span>);
+grid <span class="string">on</span>;
+axis([20 40 -3 3]);
+title(<span class="string">"(x1[n] * delta(n-n0)"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(3, 1, 2);
+stem(nyI12 , yI12 , <span class="string">'r.'</span>);
+grid <span class="string">on</span>;
+axis([20 40 -3 3]);
+title(<span class="string">"x1[n - n0]"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+
+subplot(3, 1, 3);
+stem(nyI11 , yI11 , <span class="string">'k'</span>);
+hold <span class="string">on</span>;
+stem(nyI12 , yI12 , <span class="string">'r.'</span>);
+grid <span class="string">on</span>;
+axis([20 40 -3 3]);
+title(<span class="string">"x1[n] * delta[n - n0]  = x1[n - n0]"</span>);
+xlabel(<span class="string">'Time (sample)'</span>);
+ylabel(<span class="string">'Amplitude'</span>);
+legend(<span class="string">"x1[n] * delta[n - n0]"</span> ,<span class="string">"x1[n - n0]"</span>)
+</pre><img vspace="5" hspace="5" src="DSP0_MATLAB_HW1_Q1_04.png" alt=""> <h2 id="11">Func ( Convolution in two dimentions)</h2><pre class="codeinput"><span class="keyword">function</span> [y,ny] = conv_m(x,nx,h,nh)
+<span class="comment">% Modified convolution routine for signal processing</span>
+<span class="comment">% --------------------------------------------------</span>
+<span class="comment">% [y,ny] = conv_m(x,nx,h,nh)</span>
+<span class="comment">% [y,ny] = convolution result</span>
+<span class="comment">% [x,nx] = first signal</span>
+<span class="comment">% [h,nh] = second signal</span>
+<span class="comment">%</span>
+nyb = nx(1)+nh(1); <span class="comment">%begining point of y(n)</span>
+nye = nx(length(x)) + nh(length(h)); <span class="comment">%end point of y(n)</span>
+ny = [nyb:nye];
+y = conv(x,h);
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">    "y diff is :"
+
+
+ycdiff =
+
+     0
+
+    "so they are equal"
+
+</pre><h2 id="12">Function Adding two Signals</h2><pre class="codeinput"><span class="keyword">function</span> [y,n] = sigadd(x1,n1,x2,n2)
+<span class="comment">% implements y(n) = x1(n)+x2(n)</span>
+<span class="comment">% -----------------------------</span>
+<span class="comment">% [y,n] = sigadd(x1,n1,x2,n2)</span>
+<span class="comment">% y = sum sequence over n, which includes n1 and n2</span>
+<span class="comment">% x1 = first sequence over n1</span>
+<span class="comment">% x2 = second sequence over n2 (n2 can be different from n1)</span>
+<span class="comment">%</span>
+n = min(min(n1),min(n2)):max(max(n1),max(n2)); <span class="comment">% duration of y(n)</span>
+y1 = zeros(1,length(n1));  <span class="comment">% initialization</span>
+y2 =zeros(1,length(n2)); <span class="comment">% initialization</span>
+y1(find((n&gt;=min(n1))&amp;(n&lt;=max(n1))==1))=x1; <span class="comment">% x1 with duration of y</span>
+y2(find((n&gt;=min(n2))&amp;(n&lt;=max(n2))==1))=x2; <span class="comment">% x2 with duration of y</span>
+y = y1+y2; <span class="comment">% sequence addition</span>
+<span class="keyword">end</span>
+</pre><h2 id="13">Function Step Sequence</h2><pre class="codeinput"><span class="keyword">function</span> [x,n] = stepseq(n0,n1,n2)
+<span class="comment">% Generates x(n) = u(n-n0); n1 &lt;= n &lt;= n2</span>
+<span class="comment">% ------------------------------------------</span>
+<span class="comment">% [x,n] = stepseq(n0,n1,n2)</span>
+<span class="comment">%</span>
+n = [n1:n2]; x = [(n-n0) &gt;= 0];
+<span class="keyword">end</span>
+</pre><h2 id="14">Function : Shiffting signal</h2><pre class="codeinput"><span class="keyword">function</span> [y,n] = sigshift(x,m,k)
+<span class="comment">% implements y(n) = x(n-k)</span>
+<span class="comment">% -------------------------</span>
+<span class="comment">% [y,n] = sigshift(x,m,k)</span>
+<span class="comment">%</span>
+n = m+k; y = x;
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">    "y_Identity diff2 is :"
+
+
+yI1diff =
+
+     0
+
+    "As we see, they are equal"
+
+</pre><h2 id="15">Function delta</h2><pre class="codeinput"><span class="keyword">function</span> [x,n] = impseq(n0,n1,n2)
+<span class="comment">% Generates x(n) = delta(n-n0); n1 &lt;= n &lt;= n2</span>
+<span class="comment">% ----------------------------------------------</span>
+<span class="comment">% [x,n] = impseq(n0,n1,n2)</span>
+<span class="comment">%</span>
+n = [n1:n2]; x = [(n-n0) == 0];
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2020b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Digital Signal Processing MATLAB HW - q1
+% Professor: Dr. Sheikhzadeh
+% Author: [SeyedAli] - [SeyedHosseini]
+% E-mail: [alisnake@aut.ac.ir]  %which I`m about to change ASAP
+% University: Amirkabir University of Technology
+
+%% Clear recent data
+clear; close all; clc; 
+
+%% Verifying By Matlab(Part B)
+
+%define parameters 
+%times
+n1 = -15:35;
+n2 = 0:25;
+n3 = -10:10;
+%signals
+x11 = cos(pi*n1 / 4);  %cosine part 
+[x12,n12] = stepseq(-5,-15,35); %step plot : u(n+5)
+[x13,n13] = stepseq(25,-15,35); %step plot : u(n-25)
+[x14,n14] = sigadd(x12,n12,-x13,n13); %step plot : u(n+5) - u(n-25)
+x1 = x11.*x14; % x1(n) = cos(pi*n/4) * {u(n+5) - u(n-25)}
+x21 = 0.9 .^ -n2; %exponential part
+[x22,n22] = stepseq(0,0,25);  %step plot : u(n)
+[x23,n23] = stepseq(20,0,25); %step plot : u(n-20)
+x24 = x22 - x23;   %step plot : u(n) - u(n-20)
+x2 = x21.*x24;  %x2(n) = (0.9^-n ) * {u(n) - u(n-20)}
+w = -1 + (1+1)*rand(1,20); %randomly w(n)
+x3 = round(w.*5); %x(3) = round[5w(n)]
+%%  Commutative property
+% To prove the Commutation property of convolution we must prove that :
+% x1(n)*x2(n) = x2(n)* x1(n)
+% calculate convolution
+[yc1,nyc1] = conv_m(x1,n1,x2,n2);  %x1(n) * x2(n) 
+[yc2,nyc2] = conv_m(x2,n2,x1,n1);  %x2(n) * x1(n) 
+ycdiff = max(abs(yc1 - yc2));
+display("y diff is :")
+display(ycdiff)
+display("so they are equal")
+
+%% plotting Commutative property
+clc;
+figure(1);
+subplot(3, 1, 1);
+stem(nyc1 , yc1 , 'r.');
+grid on;
+axis([-20 45 -15 15]);
+title("x1[n] * x2[n]");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+
+subplot(3, 1, 2);
+stem(nyc2 , yc2 , 'b*');
+grid on;
+axis([-20 45 -15 15]);
+title("x2[n] * x1[n]");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+
+subplot(3, 1, 3);
+stem(nyc2 , yc2 , 'b*');
+hold on;
+stem(nyc1 , yc1 , 'r.');
+grid on;
+axis([-20 45 -15 15]);
+title("x2[n] * x1[n] = x1[n]*x2[n]");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+legend('x2*x1','x1*x2')
+%% Association property
+% To prove the Association property of convolution we must prove that : 
+% (x1(n)*x2(n))*x3(n) = x1(n)*(x2(n)*x3(n))
+[ya1,nya1] = conv_m(x1,n1,x2,n2);  %y1(n) = x1(n) * x2(n)
+[ya1,nya1] = conv_m(ya1,nya1,x3,n3); %y1(n) = y1(n) * x3(n) = (x1(n) * x2(n))*x3(n)
+[ya2,nya2] = conv_m(x2,n2,x3,n3);  %y2(n) = x2(n) * x3(n) 
+[ya2,nya2] = conv_m(x1,n1,ya2,nya2); %y2(n) = y2(n) * x1(n) = x1(n)*(x2(n) * x3(n)) for associations
+ydiff2 = max(abs(ya1 - ya2));
+display("y_association diff2 is :")
+display(ydiff2)
+display("so they are equal")
+
+%% plotting Association property
+figure(2);
+subplot(3, 1, 1);
+stem(nya1 , ya1 , 'k.');
+grid on;
+axis([-50 75 -75 75]);
+title("(x1[n] * x2[n])*x[3]");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+
+subplot(3, 1, 2);
+stem(nya2 , ya2 , 'r');
+grid on;
+axis([-50 75 -75 75]);
+title("x1[n]*(x2[n]*x[3])");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+
+subplot(3, 1, 3);
+stem(nya2 , ya2 , 'b*');
+hold on;
+stem(nya1 , ya1 , 'r.');
+grid on;
+axis([-50 75 -75 75]);
+title("(x1[n] * x2[n])*x[3] = x1[n]*(x2[n]*x[3])");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+legend("(x1[n] * x2[n])*x[3]","x1[n]*(x2[n]*x[3])")
+
+%% Distribution
+clc;
+x3(end+1 : length(x2)) = 0;
+y1d = x3 + x2;
+yd1 = conv(x1,y1d); %yd1 = x1[n] * (x2[n] + x3[n])
+yd2 = conv(x1,x2) + conv(x1,x3); %y2d = x1[n]*x2[n] + x1[n]*x3[n]
+ydiffD2 = max(abs(yd1 - yd2));
+display("y_association diff2 is :")
+display(ydiffD2)
+display("so they are equal")
+n3(end+1 : length(yd1)) = 0;
+%% Plotting Distribution
+figure(3);
+subplot(3, 1, 1);
+stem( yd1 , 'k');
+grid on;
+axis([20 40 -30 30]);
+title("(x1[n]  * (x2[n] + x3[n]))");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+
+subplot(3, 1, 2);
+stem( yd2 , 'r');
+grid on;
+axis([20 40 -30 30]);
+title("(x1[n]  * x2[n] + x1[n]* x3[n]))");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+
+subplot(3, 1, 3);
+stem(yd1 , 'k');
+hold on;
+stem(yd2, '.');
+grid on;
+axis([20 40 -30 30]);
+title("(x1[n]  * (x2[n] + x3[n]) = (x1[n]  * x2[n] + x1[n]* x3[n])");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+legend("(x1[n]  * (x2[n] + x3[n])" ,"(x1[n]  * x2[n] + x1[n]* x3[n])")
+
+%% Identity property
+clc;
+% To prove the Identity property of convolution
+% (x(n)*delta(n - n0)) = x(n - n0)
+n0 = ceil(50*rand(1,1)-0.5); 
+[dl,ndl] = impseq(n0,n0,n0); %delta(n - n0) 
+[yI11,nyI11] = conv_m(x1,n1,dl,ndl); % y1 = x1(n) * delta(n- n0)
+[yI12,nyI12] = sigshift(x1,n1,n0);  % y2 = x1(n-n0)
+yI1diff = max(abs(yI11 - yI12));
+display("y_Identity diff2 is :")
+display(yI1diff)
+display("As we see, they are equal")
+
+%% Plotting the Identity 
+figure(4);
+subplot(3, 1, 1);
+stem(nyI11 , yI11 , 'k*');
+grid on;
+axis([20 40 -3 3]);
+title("(x1[n] * delta(n-n0)");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+
+subplot(3, 1, 2);
+stem(nyI12 , yI12 , 'r.');
+grid on;
+axis([20 40 -3 3]);
+title("x1[n - n0]");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+
+subplot(3, 1, 3);
+stem(nyI11 , yI11 , 'k');
+hold on;
+stem(nyI12 , yI12 , 'r.');
+grid on;
+axis([20 40 -3 3]);
+title("x1[n] * delta[n - n0]  = x1[n - n0]");
+xlabel('Time (sample)');
+ylabel('Amplitude');
+legend("x1[n] * delta[n - n0]" ,"x1[n - n0]")
+
+%% Func ( Convolution in two dimentions)
+function [y,ny] = conv_m(x,nx,h,nh)
+% Modified convolution routine for signal processing
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% [y,ny] = conv_m(x,nx,h,nh)
+% [y,ny] = convolution result
+% [x,nx] = first signal
+% [h,nh] = second signal
+%
+nyb = nx(1)+nh(1); %begining point of y(n)
+nye = nx(length(x)) + nh(length(h)); %end point of y(n)
+ny = [nyb:nye];
+y = conv(x,h);
+end
+%% Function Adding two Signals
+function [y,n] = sigadd(x1,n1,x2,n2)
+% implements y(n) = x1(n)+x2(n)
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% [y,n] = sigadd(x1,n1,x2,n2)
+% y = sum sequence over n, which includes n1 and n2
+% x1 = first sequence over n1
+% x2 = second sequence over n2 (n2 can be different from n1)
+%
+n = min(min(n1),min(n2)):max(max(n1),max(n2)); % duration of y(n)
+y1 = zeros(1,length(n1));  % initialization
+y2 =zeros(1,length(n2)); % initialization
+y1(find((n>=min(n1))&(n<=max(n1))==1))=x1; % x1 with duration of y
+y2(find((n>=min(n2))&(n<=max(n2))==1))=x2; % x2 with duration of y
+y = y1+y2; % sequence addition
+end
+%% Function Step Sequence
+function [x,n] = stepseq(n0,n1,n2)
+% Generates x(n) = u(n-n0); n1 <= n <= n2
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% [x,n] = stepseq(n0,n1,n2)
+%
+n = [n1:n2]; x = [(n-n0) >= 0];
+end
+%% Function : Shiffting signal
+function [y,n] = sigshift(x,m,k)
+% implements y(n) = x(n-k)
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-
+% [y,n] = sigshift(x,m,k)
+%
+n = m+k; y = x;
+end
+%% Function delta
+function [x,n] = impseq(n0,n1,n2)
+% Generates x(n) = delta(n-n0); n1 <= n <= n2
+% REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH
+% [x,n] = impseq(n0,n1,n2)
+%
+n = [n1:n2]; x = [(n-n0) == 0];
+end
+##### SOURCE END #####
+--></body></html>
